@@ -111,7 +111,7 @@ function App() {
         
 <div className="university-brand">
   <img
-    src="/images/B2-Logo.png"
+    src={`${import.meta.env.BASE_URL}images/B2-Logo.png`}
     alt="University of Arizona Biosphere 2"
     className="official-logo"
   />
@@ -206,7 +206,7 @@ function App() {
 
                 <div className="tree-display">
                   <img
-                    src="/images/tree.png"
+                    src={`${import.meta.env.BASE_URL}images/tree.png`}
                     alt="Botanical illustration of a tree with exposed roots and soil"
                     className="tree-art"
                   />
