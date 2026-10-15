@@ -1,0 +1,892 @@
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  background: #f3f1e9;
+  color: #25372b;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 235px;
+  min-width: 235px;
+  background: #172e26;
+  color: #f5f1e8;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 30px 0;
+}
+
+.university-brand {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+.arizona-mark {
+  font-family: Georgia, serif;
+  font-weight: 900;
+  font-size: 55px;
+  line-height: 1;
+  color: #ab0520;
+  -webkit-text-stroke: 2px white;
+  text-shadow: 3px 3px #0c234b;
+  margin-bottom: 12px;
+}
+
+.biosphere-brand {
+  text-align: center;
+  padding: 42px 20px;
+}
+
+.biosphere-brand h2 {
+  font-size: 29px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.brand-divider {
+  width: 60px;
+  height: 1px;
+  background: #b5bd98;
+  margin: 20px auto;
+}
+
+.biosphere-brand p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #d7dfd1;
+}
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item {
+  background: transparent;
+  border: 0;
+  color: #dce6dc;
+  padding: 19px 25px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.nav-item:hover,
+.nav-active {
+  background: #304c3c;
+  color: white;
+}
+
+.nav-active {
+  border-left: 4px solid #b8d29b;
+  padding-left: 21px;
+}
+
+.nav-symbol {
+  font-size: 24px;
+  width: 28px;
+  text-align: center;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+  padding: 30px 25px 0;
+  color: #d2ded3;
+}
+
+.sidebar-bottom > span {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.sidebar-bottom p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* HEADER */
+
+.main-area {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-header {
+  min-height: 230px;
+  padding: 48px 5%;
+  background:
+    linear-gradient(90deg, #162e26 0%, #213d30ee 45%, #5c76577d 100%);
+  color: white;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.hero-eyebrow {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #d5e4cf;
+  margin-bottom: 14px;
+}
+
+.hero-header h1 {
+  font-size: clamp(38px, 4vw, 64px);
+  font-weight: normal;
+  line-height: 1.05;
+  margin: 0 0 15px;
+  letter-spacing: -1px;
+  color: white;
+}
+
+.hero-header p {
+  font-family: Arial, sans-serif;
+  letter-spacing: 2px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #e0e9dd;
+}
+
+.header-status {
+  background: #ffffffdd;
+  color: #234333;
+  padding: 13px 16px;
+  border-radius: 10px;
+  white-space: nowrap;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot,
+.legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #7aa06b;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* MAIN CONTENT */
+
+.content {
+  padding: 22px 25px 0;
+}
+
+.top-tabs {
+  display: flex;
+  background: #eae9df;
+  border-radius: 12px;
+  padding: 5px;
+  gap: 5px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.top-tabs button {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  padding: 14px 15px;
+  color: #445147;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.top-tabs button:hover {
+  background: #d9e0d3;
+}
+
+.top-tabs button.tab-active {
+  background: #294a36;
+  color: white;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 20px;
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 0;
+}
+
+.eyebrow {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: #64765f;
+}
+
+/* TREE */
+
+.tree-card {
+  background: #f9f8f3;
+  border: 1px solid #e3e1d7;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tree-intro {
+  padding: 28px 30px 0;
+}
+
+.tree-intro h2 {
+  font-size: 35px;
+  font-weight: normal;
+  margin: 12px 0 8px;
+}
+
+.tree-intro p {
+  color: #647064;
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 320px;
+  margin: 0;
+}
+
+.tree-display {
+  position: relative;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.tree-art {
+  width: 100%;
+  display: block;
+  height: auto;
+}
+
+.tree-marker {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  z-index: 2;
+  color: white;
+}
+
+.marker-circle {
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  background: #94714e;
+  border: 4px solid #f8f4df;
+  box-shadow: 0 2px 8px #0005;
+  flex-shrink: 0;
+}
+
+.marker-label {
+  background: #1c3528ed;
+  padding: 9px 14px;
+  border-radius: 7px;
+  text-align: left;
+  min-width: 110px;
+}
+
+.marker-label strong {
+  display: block;
+  font-size: 17px;
+  font-weight: normal;
+}
+
+.marker-label small {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  color: #d9e3d5;
+}
+
+.marker-active .marker-circle {
+  background: #7da56a;
+  outline: 3px solid #789e69;
+}
+
+.marker-active .marker-label {
+  background: #315f40;
+}
+
+.tree-marker:hover .marker-label {
+  background: #477453;
+}
+
+.marker-leaves {
+  top: 20%;
+  left: 48%;
+}
+
+.marker-trunk {
+  top: 51%;
+  left: 52%;
+}
+
+.marker-soil {
+  top: 78%;
+  left: 52%;
+}
+
+/* ENVIRONMENT */
+
+.environment-card,
+.measurements-card,
+.chart-card,
+.about-card,
+.exchange-heading {
+  background: #fcfbf7;
+  border: 1px solid #e3e1d7;
+  border-radius: 13px;
+  padding: 24px;
+}
+
+.environment-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.env-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.env-icon {
+  font-size: 30px;
+  color: #345c40;
+}
+
+.env-item div {
+  display: flex;
+  flex-direction: column;
+}
+
+.env-item small {
+  font-size: 11px;
+  color: #6b766c;
+}
+
+.env-item strong {
+  font-size: 25px;
+  font-weight: normal;
+  margin-top: 5px;
+}
+
+.env-item div > span {
+  font-size: 10px;
+  color: #6b766c;
+}
+
+/* RIGHT PANEL */
+
+.exchange-heading {
+  background: #efeee6;
+}
+
+.exchange-heading h2 {
+  font-size: 30px;
+  font-weight: normal;
+  margin: 12px 0 6px;
+}
+
+.exchange-heading p {
+  margin: 0;
+  color: #69766a;
+  line-height: 1.5;
+}
+
+.card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.simulation-indicator {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  color: #526b50;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metric {
+  background: #f0f1e9;
+  border-radius: 10px;
+  padding: 19px 16px;
+  min-width: 0;
+}
+
+.metric > span {
+  font-size: 13px;
+  color: #4f5d51;
+}
+
+.metric div {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.metric strong {
+  font-size: clamp(26px, 3vw, 39px);
+  font-weight: normal;
+  color: #203e2d;
+}
+
+.metric small {
+  font-size: 12px;
+  color: #4d6151;
+}
+
+.chart-container {
+  margin-top: 25px;
+}
+
+.chart-container svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart-times {
+  display: flex;
+  justify-content: space-between;
+  font-family: Arial, sans-serif;
+  color: #6d796d;
+  font-size: 10px;
+  margin-top: 7px;
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 17px;
+  font-size: 12px;
+  color: #69766a;
+}
+
+.legend-dot {
+  background: #35684a;
+}
+
+.about-card h3 {
+  font-size: 23px;
+  font-weight: normal;
+  margin: 13px 0;
+}
+
+.about-card p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #5d6a5f;
+}
+
+.disclaimer {
+  border-top: 1px solid #e0e4db;
+  padding-top: 15px;
+  margin-top: 20px;
+  color: #8c7953;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 28px 0;
+  color: #7d887d;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+}
+
+/* TABLET */
+
+@media (max-width: 1150px) {
+  .sidebar {
+    width: 185px;
+    min-width: 185px;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .environment-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* PHONE */
+
+@media (max-width: 700px) {
+  .app-shell {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+    min-height: auto;
+    padding: 15px 0 0;
+  }
+
+  .university-brand,
+  .biosphere-brand,
+  .sidebar-bottom {
+    display: none;
+  }
+
+  .side-nav {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .nav-item {
+    flex: 1;
+    justify-content: center;
+    gap: 6px;
+    padding: 14px 10px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .nav-symbol {
+    font-size: 17px;
+    width: auto;
+  }
+
+  .nav-active {
+    border-left: 0;
+    border-bottom: 3px solid #b8d29b;
+  }
+
+  .hero-header {
+    padding: 35px 22px;
+    flex-direction: column;
+    min-height: 200px;
+  }
+
+  .hero-header h1 {
+    font-size: 40px;
+  }
+
+  .content {
+    padding: 14px;
+  }
+
+  .top-tabs button {
+    padding: 12px;
+    font-size: 10px;
+  }
+
+  .tree-intro {
+    padding: 22px 20px 0;
+  }
+
+  .tree-intro h2 {
+    font-size: 29px;
+  }
+
+  .tree-intro p {
+    font-size: 14px;
+  }
+
+  .marker-circle {
+    width: 21px;
+    height: 21px;
+    border-width: 3px;
+  }
+
+  .marker-label {
+    padding: 7px;
+    min-width: 75px;
+  }
+
+  .marker-label strong {
+    font-size: 12px;
+  }
+
+  .marker-label small {
+    font-size: 9px;
+  }
+
+  .environment-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .metric strong {
+    font-size: 28px;
+  }
+
+  .exchange-heading h2 {
+    font-size: 25px;
+  }
+}
+.official-logo {
+  display: block;
+  width: 175px;
+  max-width: 90%;
+  height: auto;
+  margin: 0 auto 12px;
+  background: white;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.sidebar {
+  width: 235px;
+  min-width: 235px;
+}
+
+.official-logo {
+  width: 205px;
+  max-width: 90%;
+  padding: 5px;
+}
+
+.biosphere-brand {
+  padding: 20px 12px 35px;
+}
+
+.biosphere-brand p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* BIOSPHERE 2 HEADER PHOTOGRAPH */
+
+.hero-header {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(15, 39, 29, 0.95) 0%,
+      rgba(21, 48, 35, 0.78) 45%,
+      rgba(21, 48, 35, 0.20) 100%
+    ),
+    url('/images/biosphere-header.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ==================================
+   MOBILE-FIRST IMPROVEMENTS
+   ================================== */
+
+@media (max-width: 700px) {
+
+  /* Show university branding on phones */
+  .sidebar {
+    padding: 0;
+    background: #172e26;
+  }
+
+  .university-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 15px;
+  }
+
+  .official-logo {
+    display: block;
+    width: 205px;
+    max-width: 85%;
+    margin: 0;
+  }
+
+  .biosphere-brand,
+  .sidebar-bottom {
+    display: none;
+  }
+
+  /* Compact navigation */
+  .side-nav {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: visible;
+  }
+
+  .nav-item {
+    min-width: 0;
+    padding: 12px 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .nav-symbol {
+    font-size: 21px;
+  }
+
+  /* Smaller hero banner */
+  .hero-header {
+    min-height: 0;
+    padding: 25px 20px;
+    gap: 12px;
+  }
+
+  .hero-eyebrow {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .hero-header h1 {
+    font-size: clamp(32px, 8vw, 43px);
+    line-height: 1.08;
+    margin-bottom: 10px;
+  }
+
+  .hero-header p {
+    font-size: 9px;
+    letter-spacing: 1.2px;
+    margin: 0;
+  }
+
+  .header-status {
+    padding: 8px 11px;
+    font-size: 10px;
+  }
+
+  /* All four tabs visible without scrolling */
+  .top-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    overflow: visible;
+    padding: 6px;
+  }
+
+  .top-tabs button {
+    min-width: 0;
+    white-space: normal;
+    font-size: 11px;
+    line-height: 1.4;
+    padding: 13px 7px;
+    text-align: center;
+  }
+
+  /* Give the tree and data room */
+  .content {
+    padding: 12px;
+  }
+
+  .content-grid {
+    gap: 12px;
+  }
+
+  .tree-intro {
+    padding: 20px 18px 0;
+  }
+
+  .tree-intro h2 {
+    font-size: 29px;
+  }
+
+  .tree-intro p {
+    font-size: 14px;
+  }
+
+  /* Keep measurement cards easy to read */
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .metric {
+    padding: 15px 11px;
+  }
+
+  .metric strong {
+    font-size: clamp(23px, 6vw, 30px);
+  }
+
+  .metric small {
+    font-size: 10px;
+  }
+
+  .environment-card,
+  .measurements-card,
+  .chart-card,
+  .about-card,
+  .exchange-heading {
+    padding: 18px;
+  }
+}
