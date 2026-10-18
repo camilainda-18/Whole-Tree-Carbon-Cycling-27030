@@ -1,5 +1,5 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 const sensorData = {
@@ -98,10 +98,71 @@ function ExchangeChart({ selected }) {
 function App() {
   const [selected, setSelected] = useState('leaves')
   const [page, setPage] = useState('Live Data')
-  const data = sensorData[selected]
+  const [showScience, setShowScience] = useState(false)
+  const [lastChecked, setLastChecked] = useState(null)
+  const [liveMeasurement, setLiveMeasurement] = useState(null)
+  const [connectionStatus, setConnectionStatus] = useState('Connecting...')
+
+  useEffect(() => {
+    let active = true
+
+    async function fetchMeasurements() {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/measurements')
+        if (!response.ok) throw new Error('API request failed')
+
+        const result = await response.json()
+        if (!active) return
+        setLastChecked(new Date())
+
+        if (result.status === 'success' && result.measurement) {
+          setLiveMeasurement(result.measurement)
+          setConnectionStatus('Connected to InfluxDB')
+        } else {
+          setLiveMeasurement(null)
+          setConnectionStatus('No database measurements')
+        }
+      } catch (error) {
+        if (!active) return
+        setLiveMeasurement(null)
+        setConnectionStatus('Database connection unavailable')
+        console.error('InfluxDB connection error:', error)
+      }
+    }
+
+    fetchMeasurements()
+    const interval = setInterval(fetchMeasurements, 10000)
+    return () => {
+      active = false
+      clearInterval(interval)
+    }
+  }, [])
+
+  const data = {
+    ...sensorData[selected],
+    metrics: sensorData[selected].metrics.map((metric) => {
+      if (selected === 'leaves' && metric.label === 'CO₂ Concentration') {
+        return {
+          ...metric,
+          value: liveMeasurement?.co2 != null
+            ? Number(liveMeasurement.co2).toFixed(1)
+            : '—',
+        }
+      }
+      return metric
+    }),
+  }
+
+  const scienceFacts = {
+    leaves: { heading: 'How do leaves capture carbon?', fact: 'Leaves use sunlight to turn CO₂ and water into sugars during photosynthesis. They also respire, so net exchange depends on light and environmental conditions.', question: 'Why can the CO₂ exchange change during the day?', answer: 'Light availability, temperature, and stomatal opening can all change the balance between photosynthesis and respiration.' },
+    trunk: { heading: 'Does the trunk release CO₂?', fact: 'Living stem tissues respire and release CO₂. Stem measurements help researchers estimate how much carbon the tree returns to the atmosphere.', question: 'Is trunk respiration the same as leaf exchange?', answer: 'No. Leaf exchange combines photosynthesis and respiration, while stem gas exchange primarily reflects respiration and internal transport.' },
+    soil: { heading: 'Why does soil release CO₂?', fact: 'Roots and soil microorganisms respire, producing CO₂. Soil moisture and temperature can affect this process.', question: 'Does all soil CO₂ come from the tree?', answer: 'No. Soil respiration includes both roots and organisms that decompose organic matter.' },
+  }
+  const science = scienceFacts[selected]
 
   const chooseSection = (section) => {
     setSelected(section)
+    setShowScience(false)
     setPage('Live Data')
   }
 
@@ -162,7 +223,7 @@ function App() {
           </div>
           <div className="header-status">
             <span className="status-dot" />
-            Prototype · Simulated Data
+            Prototype · Database Connection Test
           </div>
         </header>
 
@@ -247,6 +308,7 @@ function App() {
                     </span>
                   </button>
                 </div>
+                <div className="tree-help">Tap a marker on the tree to explore its measurements and science.</div>
               </section>
 
               <section className="environment-card" id="environment-section">
@@ -300,9 +362,12 @@ function App() {
                   <span className="eyebrow">CURRENT MEASUREMENTS</span>
                   <span className="simulation-indicator">
                     <span className="status-dot" />
-                    Demo Data
+                      {selected === 'leaves'
+                        ? `${connectionStatus} · Other values simulated`
+                        : 'Demo Data'}
                   </span>
                 </div>
+                <p className="data-provenance">{selected === 'leaves' ? (liveMeasurement?.co2 != null ? 'CO₂ concentration: InfluxDB test measurement. Other metrics: simulated.' : 'CO₂ concentration unavailable. Other metrics: simulated.') : 'All values in this section are simulated.'}{selected === 'leaves' && lastChecked ? ` Last API check: ${lastChecked.toLocaleTimeString()}.` : ''}</p>
 
                 <div className="metric-grid">
                   {data.metrics.map((metric) => (
@@ -315,6 +380,16 @@ function App() {
                     </div>
                   ))}
                 </div>
+              </section>
+
+              <section className="science-card" aria-live="polite">
+                <span className="eyebrow">EXPLORE THE SCIENCE · {selected.toUpperCase()}</span>
+                <h3>{science.heading}</h3>
+                <p>{science.fact}</p>
+                <button className="science-toggle" onClick={() => setShowScience((value) => !value)} aria-expanded={showScience}>
+                  {showScience ? 'Hide explanation −' : 'Learn more +'}
+                </button>
+                {showScience && <div className="science-answer"><strong>{science.question}</strong><p>{science.answer}</p></div>}
               </section>
 
               <section className="chart-card">
@@ -331,8 +406,7 @@ function App() {
                 <h3>About {data.title}</h3>
                 <p>{data.description}</p>
                 <div className="disclaimer">
-                  All measurements and chart values are simulated for
-                  demonstration. Live data integration is in development.
+                  The dashboard is a prototype. The leaf CO₂ value may come from a local InfluxDB test record; it is not a verified leaf sensor measurement. All other values and charts are simulated. Public live-data hosting is not yet configured.
                 </div>
               </section>
             </div>

@@ -890,3 +890,17 @@ button {
     padding: 18px;
   }
 }
+
+/* Visitor-friendly science panels */
+.tree-help { padding: 12px 20px 20px; text-align: center; font: 12px/1.5 Arial, sans-serif; color: #536958; }
+.science-card { background: #fcfbf7; border: 1px solid #e3e1d7; border-radius: 13px; padding: 24px; }
+.science-card h3 { font-size: 24px; font-weight: normal; margin: 12px 0; }
+.science-card p { color: #5d6a5f; font-size: 15px; line-height: 1.65; margin: 0 0 14px; }
+.science-toggle { background: #294a36; color: #fff; border: 0; border-radius: 8px; padding: 11px 16px; cursor: pointer; font: 13px Arial, sans-serif; }
+.science-toggle:hover { background: #386347; }
+.science-toggle:focus-visible, .tree-marker:focus-visible { outline: 3px solid #b8d29b; outline-offset: 3px; }
+.science-answer { background: #eff2e9; border-radius: 9px; margin-top: 14px; padding: 15px; }
+.science-answer strong { color: #294a36; font-size: 15px; }
+.science-answer p { margin: 8px 0 0; }
+.data-provenance { margin: -8px 0 16px; color: #667264; font: 12px/1.5 Arial, sans-serif; }
+@media (max-width: 700px) { .science-card { padding: 18px; } }
